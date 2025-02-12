@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    
+    
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Line Pattern</title>
+    <style>
+        
+        /* COLORS
+#b0e2c3
+#9ca29f
+#3d3b49
+#3b3b3b
+#cda7e1
+#ff46ff
+#7fa1da
+#3f8573
+         */
+        
+        /* @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Krona+One&family=Lexend+Zetta:wght@100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Unica+One&display=swap'); */
+        
+        
+        body {
+            margin: 0;
+            height: 500vh;
+            width: 100vw;
+            background-color: white;
+          /* background-image: url(blur.png);*/
+            filter: blur(0px); 
+            overflow-y: scroll;
+            overflow-x: hidden;
+        }
+        
+        #grad {
+        background-image: radial-gradient(#b0e2c3, #9ca29f, #3d3b49, #3b3b3b, #cda7e1, #ff46ff, #7fa1da, #3f8573);
+            width: 400px;
+            height: 400px;
+            
+        }
+        
+        /*colors: #87cbc1 (teal), #f680b2 (pink), #8b8db4 (violet)*/
+                
+        /* Static Red Stripes */
+        .red-stripes {
+            position: fixed;
+            top: 100vh;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background-image: linear-gradient(red 1px, transparent 1px);
+            background-size: 100% 3px;
+            z-index: 0; /* Ensures it stays in the background */
+            pointer-events: none;
+        }
+        /* Red Lines */
+        .dynamic-lines {
+            position: fixed;
+            top: 100vh;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background-image: linear-gradient(blue 1px, transparent 1px);
+            background-size: 100% 1px;
+            z-index: 1; /* Keeps it above the red stripes */
+            pointer-events: none;
+        }
+        
+        #superimpose {
+           position: absolute;
+            top: 250vh;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+        }
+        
+        #superimpose2 {
+           position: absolute;
+            top: 250vh;
+            left: 20vw;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            z-index: -10;
+        }
+        
+        iframe#blendframe {
+    
+            width: 100%;
+            height: 100vh;
+            margin: 0;
+            z-index: 100000000;
+            border: none;
+            background: none;
+        }
+        
+         iframe#blendframe2 {
+    
+            width: 100%;
+            height: 100vh;
+            margin: 0;
+            z-index: 1000000000000;
+            border: none;
+            background: none;
+
+        }
+        
+        
+        
+        #rotating-img {
+            animation: rotate 10s linear infinite;
+            width: 100%;
+            height: 100%;
+            background-image: url(distort.png);
+            background-blend-mode: color-dodge;
+        }
+        
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+        
+        .pigeon-frame {
+            position: fixed;
+            top: 100vh;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-image: url(frameEye.png);
+            background-size: 100%;
+            z-index: 1000000; /* Keeps it above the red stripes */
+            pointer-events: none;
+        }
+        
+        .pigeon-frame-text {
+            position: fixed;
+            top: 100vh;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-image: url(frameText.png);
+            background-size: 100%;
+            z-index: 100000000000000000000000000; /* Keeps it above the red stripes */
+            pointer-events: none;
+        }
+        
+        
+        
+        .grey-frame {
+            
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 300vh;
+            background-image: linear-gradient(#c0c0c0 100vh, transparent 105vh );
+            background-size: cover;
+            z-index: 10000000;
+            
+        } 
+        
+        /*Spots for text*/
+        #spot1 {
+            position: absolute;
+            top: 115vh;
+            left: 5%;  
+        }
+        
+        #spot2 {
+            position: absolute;
+            top: 160vh;
+            left: 40%;  
+        }
+        
+        #spot3 {
+            position: absolute;
+            top: 150vh;
+            right: 15%; 
+        }
+        
+        #spot4 {
+            position: absolute;
+            top: 116vh;
+            right: 15%; 
+            
+        }
+        
+        p {
+            
+            font-family: serif;
+
+            font-style: normal;
+            font-size: 30px;
+            color: aliceblue;
+            background-color: black;
+            z-index: 100000000;
+            text-align: center;
+        }
+        
+        h1 {
+            display: block;
+            font-size: 2em;
+            margin-top: 0.67em;
+            margin-bottom: 0.67em;
+            margin-left: 0;
+            margin-right: 0;
+            font-weight: normal;
+        }
+        
+        
+        #spot5 {
+            position: absolute;
+            bottom: 0%;
+            right: 15%; 
+            
+        }
+        
+        .main {
+            
+            position: absolute;
+            top: 400vh;
+            left: 0px;
+            width: 100%;
+            height: 200vh;
+            
+            margin: 0;
+            z-index: 10000000000000;
+            border: none;
+        
+            
+        }
+        
+        img.glitched-pigeon {
+            position: absolute;
+            top: 5vh;
+            left: 2vw;
+            z-index: 1000000000000;
+            width: 70vw; /* Responsive width */
+            height: 70vh; /* Maintain aspect ratio */
+        }
+        
+        .intro-text {
+            z-index: 1;
+            font-family: "Josefin Sans", serif;
+            font-style: normal;
+            font-size: 60px;
+            color: black;
+            z-index: 1000000;
+            text-align: left; 
+        }
+        
+        .intro-text2 {
+            z-index: 1;
+            font-family: "Josefin Sans", serif;
+            font-style: normal;
+            font-size: 60px;
+            color: black;
+            z-index: 1000000;
+            text-align: right; 
+       
+        }
+        
+        .intro-div{
+            position: absolute;
+            height: 100vh;
+            width: 100vw;  
+            top: 0;
+            left: 0;
+        }
+        
+        #word-container {
+            position: absolute;
+            z-index: 1;
+            font-family: "Josefin Sans", serif;
+            font-style: bold;
+            font-size: 60px;
+            color: black;
+            z-index: 1000000;
+            text-align: left;
+            top: 30vh;
+        }
+        
+        
+        
+    </style>
+</head>
+<body>
+    
+    <div class="glitched-pigeon">
+    <img class="glitched-pigeon" src="pigeon_transparency.png">
+        </div>
+    
+    <div id="word-container">Grey</div>
+    
+    <div class="intro-div"> <h1 class="intro-text">If you think about the mundane, you might, at some point, think about pigeons. How they're dull, annoying perhaps stupid but, most notably, ubiquitous in any urban environment. <br> <br> If you had to associate any color with the pigeon, what would it be?</h1>
+        <br> <br> <br> <br> <br> <br> <br>
+        <h1 class="intro-text2">This webpage aims to shifts your perspective and encourage you to appreciate the iridescent beauty of grey.</h1>
+        
+    </div>
+    
+    
+    <!--
+    <p id="spot1">maybe take a look <br> from <u>this</u> angle</p>
+    
+    <p id="spot2">how about <br> <u>here</u> ?</p>
+    
+    <p id="spot3">notice the <br> <u>iridescence</u>? </p>
+    
+    <p id="spot4">sometimes it's <br> <u>vibrant</u> </p>
+    
+    <p id="spot5">bottom</p> -->
+    
+    
+    <div class="pigeon-frame"></div>
+    <div class="pigeon-frame-text"></div>
+    <div class="red-stripes"></div>
+    <div class="dynamic-lines"></div>
+    <div class="green-lines"></div>
+    
+    
+    <div id="superimpose">
+    <iframe id="blendframe" src="blendmode.html"></iframe>
+    </div>
+    
+    <div id="superimpose2">
+    <iframe id="blendframe2" src="dragDrop.html"></iframe>
+    </div>
+    
+    
+    <iframe class="main" src="master.html"></iframe>
+    
+    
+    <script>
+        document.addEventListener('mousemove', function(event) {
+            let lineSpacingY = 2 + (event.clientY / window.innerHeight) * 5; // 2px to 7px
+            document.querySelector('.dynamic-lines').style.backgroundSize = `100% ${lineSpacingY}px`;
+            
+            let lineSpacingX = 2 + (event.clientX / window.innerWidth) * 5; // 2px to 7px
+            document.querySelector('.green-lines').style.backgroundSize = `${lineSpacingX}px 100%`;
+        });
+        
+        const words = [
+    "DarkGrey", "DimGrey", "LightGrey", 
+    "SlateGrey", "DarkSlateGrey", "LightSlateGrey", 
+    "Grey"
+];
+
+        let index = 0;
+        setInterval(() => {
+            document.getElementById("word-container").textContent = words[index];
+            index = (index + 1) % words.length;
+        }, 200); // Change word every second
+        
+        
+        
+        
+        
+        
+        
+        
+        /* SUPERIMPOSE IFRAME */
+        
+        
+    </script>
+    
+</body>
+</html>

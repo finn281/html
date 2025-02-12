@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drag and Drop Images</title>
+    <style>
+        body {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            position: relative;
+        }
+        .image-container {
+            position: absolute;
+            cursor: grab;
+        }
+        img {
+            max-width: 150px;
+            height: auto;
+            user-select: none;
+        }
+    </style>
+</head>
+<body>
+    <script>
+        const images = ["image1.jpg", "image2.jpg", "image3.jpg", "image4.jpg"]; // Replace with actual image paths
+
+        images.forEach((src, index) => {
+            let imgContainer = document.createElement("div");
+            imgContainer.classList.add("image-container");
+            imgContainer.style.left = `${50 + index * 100}px`;
+            imgContainer.style.top = `${50 + index * 50}px`;
+            
+            let img = document.createElement("img");
+            img.src = src;
+            img.draggable = false;
+            
+            imgContainer.appendChild(img);
+            document.body.appendChild(imgContainer);
+            
+            let offsetX, offsetY, isDragging = false;
+            
+            imgContainer.addEventListener("mousedown", (e) => {
+                isDragging = true;
+                offsetX = e.clientX - imgContainer.getBoundingClientRect().left;
+                offsetY = e.clientY - imgContainer.getBoundingClientRect().top;
+                imgContainer.style.zIndex = 1000;
+            });
+            
+            document.addEventListener("mousemove", (e) => {
+                if (!isDragging) return;
+                imgContainer.style.left = `${e.clientX - offsetX}px`;
+                imgContainer.style.top = `${e.clientY - offsetY}px`;
+            });
+            
+            document.addEventListener("mouseup", () => {
+                isDragging = false;
+                imgContainer.style.zIndex = 1;
+            });
+        });
+    </script>
+</body>
+</html>
