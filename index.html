@@ -1,14 +1,559 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>p5.js Sketch</title>
-  <link rel="stylesheet" href="style.css">
+    
+    
+    
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>the pigeon effect</title>
+    <style>
+        
+        /* COLORS
+#b0e2c3
+#9ca29f
+#3d3b49
+#3b3b3b
+#cda7e1
+#ff46ff
+#7fa1da
+#3f8573
+         */
+        
+        /* @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Krona+One&family=Lexend+Zetta:wght@100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Unica+One&display=swap'); */
+        
+        
+        body {
+            margin: 0;
+            height: 500vh;
+            width: 100vw;
+            background-color: white;
+          /* background-image: url(blur.png);*/
+            filter: blur(0px); 
+            overflow-y: scroll;
+            overflow-x: hidden;
+        }
+        
+        
+        footer {
+            text-align: center;
+            padding: 3px;
+            background-color: darkgrey;
+            color: black;
+            position: absolute;
+            bottom: 0;
+        }
+        
+        #grad {
+        background-image: radial-gradient(#b0e2c3, #9ca29f, #3d3b49, #3b3b3b, #cda7e1, #ff46ff, #7fa1da, #3f8573);
+            width: 400px;
+            height: 400px;
+            
+        }
+        
+        ::-webkit-scrollbar {
+            width: 10px;
+            
+        }
+        
+        /* Track */
+        ::-webkit-scrollbar-track {
+      background-image: url(BarFull.png);
+            width: 10px;
+      
+          
+        }
+
+        /* Handle */
+        ::-webkit-scrollbar-thumb {
+
+            background-image: url(barTrack.png);
+            mix-blend-mode: difference;
+        }
+
+        /* Handle on hover */
+        ::-webkit-scrollbar-thumb:hover {
+            background-image: url(barHover.png);
+        }
+
+        
+        /*colors: #87cbc1 (teal), #f680b2 (pink), #8b8db4 (violet)*/
+                
+        /* Static Red Stripes */
+        .red-stripes {
+            position: fixed;
+            top: 100vh;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background-image: linear-gradient(red 1px, transparent 1px);
+            background-size: 100% 3px;
+            z-index: 0; /* Ensures it stays in the background */
+            pointer-events: none;
+            
+        }
+        /* Red Lines */
+        .dynamic-lines {
+            position: fixed;
+            top: 100vh;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background-image: linear-gradient(blue 1px, transparent 1px);
+            background-size: 100% 1px;
+            z-index: 1; /* Keeps it above the red stripes */
+            pointer-events: none;
+           /* transform: rotate(13deg);*/
+        }
+        
+        #superimpose {
+           position: absolute;
+            top: 250vh;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+        }
+        
+        #superimpose2 {
+           position: absolute;
+            top: 250vh;
+            left: 20vw;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            z-index: -10;
+        }
+        
+        iframe#blendframe {
+    
+            width: 100%;
+            height: 100vh;
+            margin: 0;
+            z-index: 100000000;
+            border: none;
+            background: none;
+        }
+        
+         iframe#blendframe2 {
+    
+            width: 100%;
+            height: 100vh;
+            margin: 0;
+            z-index: 1000000000000;
+            border: none;
+            background: none;
+
+        }
+        
+        #image-wrapper {
+            position: absolute;
+            top: 250vh; /* Adjust this value to place it where you want */
+            left: 0vw; /* Adjust horizontal position if needed */
+            width: 100vw; /* Ensure it has enough space */
+            height: 100vh;
+        }
+        
+        .blending-text {
+            position: absolute;
+            right: 100px;
+            bottom: 100px;
+            font-size: 2em;
+            width: 50%;
+            color: black; /* The color affects the blend result */
+           
+            text-align: left;
+            pointer-events: none; /* Ensures text doesn’t interfere with dragging */
+           
+}
+
+        
+        #rotating-img {
+            animation: rotate 10s linear infinite;
+            width: 100%;
+            height: 100%;
+            background-image: url(distort.png);
+            background-blend-mode: color-dodge;
+        }
+        
+        
+        
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+        
+        .pigeon-frame {
+            position: fixed;
+            top: 100vh;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-image: url(frameEye.png);
+            background-size: contain;
+            z-index: 1000000; /* Keeps it above the red stripes */
+            pointer-events: none;
+        }
+        
+        .pigeon-frame2 {
+            position: fixed;
+            top: 100vh;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-image: url(borderPigeon.png);
+            background-size: contain;
+            z-index: 1000000; /* Keeps it above the red stripes */
+            pointer-events: none;
+            mix-blend-mode: color-burn;
+        }
+        
+        .pigeon-frame-text {
+            position: fixed;
+            top: 100vh;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-image: url(frameText.png);
+            background-size: 100%;
+            z-index: 100000000000000000000000000; /* Keeps it above the red stripes */
+            pointer-events: none;
+        }
+        
+        
+        
+        .grey-frame {
+            
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 300vh;
+            background-image: linear-gradient(#c0c0c0 100vh, transparent 105vh );
+            background-size: cover;
+            z-index: 10000000;
+            
+        } 
+        
+        /*Spots for text*/
+        #spot1 {
+            position: absolute;
+            top: 115vh;
+            left: 5%;  
+        }
+        
+        #spot2 {
+            position: absolute;
+            top: 160vh;
+            left: 20%;  
+        }
+        
+        #spot3 {
+            position: absolute;
+            top: 150vh;
+            right: 15%; 
+        }
+        
+        #spot4 {
+            position: absolute;
+            top: 116vh;
+            right: 15%; 
+            
+        }
+        
+        p {
+            
+            font-family: serif;
+
+            font-style: normal;
+            font-size: 2em;
+        
+          
+            z-index: 100000000;
+            text-align: center;
+        }
+        
+        h1 {
+            display: block;
+            font-size: 2em;
+         
+            margin-left: 10;
+            margin-right: 10;
+            font-weight: normal;
+        }
+        
+        
+        #spot5 {
+            position: absolute;
+            bottom: 0%;
+            right: 15%; 
+            
+        }
+        
+        .main {
+            
+            position: absolute;
+            top: 400vh;
+            left: 0px;
+            width: 100%;
+            height: 1600px;
+            margin: 0;
+            z-index: 10000000000000;
+            border: none;
+        
+            
+        }
+        
+        .glitched-pigeon {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 1000000000000;
+            width: 100vw; /* Responsive width */
+            height: 80vh; /* Maintain aspect ratio */
+            background-image: url(pigeon_transparency.png);
+            background-size: contain;
+            background-repeat: no-repeat;
+        }
+        
+        .intro-text {
+            color: black;
+            z-index: 1000000;
+            text-align: left; 
+             position: absolute;
+            top: 10px;
+        }
+        
+        .intro-text2 {
+            z-index: 1;
+            position: absolute;
+         
+            width: 95vw;
+            bottom: 10px;
+            color: black;
+            z-index: 1000000;
+            text-align: left; 
+            padding: 10px;
+        }
+        
+        .intro-div{
+            position: absolute;
+            height: 95vh;
+            width: 95vw;  
+            top: 0;
+            left: 0;
+            padding: 10px;
+        }
+        
+        #word-container {
+          
+            z-index: 1;
+            font-family:serif;
+            font-size: 22vh;
+            z-index: 1000000;
+            text-align: center;
+            transform: scaleY(4);
+            color: transparent; /* Make the text invisible */
+            -webkit-background-clip: text; /* Clip the background to the text */
+            background-clip: text;
+            background-image: url('10802.jpg'); /* Your background image */
+            background-size:auto;
+            background-position: center;;
+            
+            /*-webkit-text-stroke: 3px black;*/
+            animation: hue 5s linear infinite;
+        }
+        
+        @keyframes hue {
+            from {
+                filter: saturate(0);
+            }
+            to {
+                filter: saturate(1);
+            }
+        }
+        
+        /* DRAG & DROP */
+
+        .image-container {
+            position: absolute;
+            cursor: grab;
+            
+        }
+        
+        img {
+            max-width: 150px;
+            height: auto;
+            user-select: none;
+        }
+        
+        #pigeonIcon {
+            position: sticky;
+            top: 10px;
+            left: 10px;
+            width: 237px;
+            height: 74px;
+            background-image: url(pigeon%20button.png);
+        }
+        
+        #Title {
+            position: relative;
+           
+        }
+    
+    </style>
 </head>
 <body>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.6.0/p5.min.js"></script>
-  <script src="sketch.js"></script>
- 
+    
+   <!-- <div id="pigeonIcon"></div> -->
+    
+    <div class="glitched-pigeon">
+        </div>
+    <div id="Title"><h1><center><i>The Pigeon Effect</i></center></h1></div>
+    
+
+    
+    <div class="intro-div"> 
+        <h1>If you think about the mundane, you might, at some point, think about pigeons. How they're dull, annoying perhaps stupid but, most notably, ubiquitous in any urban environment. If you had to associate any color with the pigeon, what would it be? ↓</h1>
+        
+        <br> <br> <br> <br> <br> <br> <br>
+        <div id="word-container">Grey </div>
+        
+        <h1 class="intro-text2">This webpage aims to shifts your perspective and encourage you to appreciate the iridescent beauty of grey.</h1>
+        
+    </div>
+    
+    
+    
+    <p id="spot1">maybe take a look <br> from <i>this</i> angle</p>
+    
+    <p id="spot2">how about <br> <i>here</i> ?</p>
+    
+    <p id="spot3">notice the <br> <u>iridescence</u>? </p>
+    
+    <p id="spot4">sometimes it's <br> <i>vibrant</i> </p>
+    
+    <p id="spot5">bottom</p>
+    
+    
+    <div class="pigeon-frame"></div>
+    <!--<div class="pigeon-frame2"></div>-->
+   <!-- <div class="pigeon-frame-text"></div> -->
+    <div class="red-stripes"></div>
+    <div class="dynamic-lines"></div>
+    <div class="green-lines"></div>
+    
+    
+    <div id="superimpose">
+    <iframe id="blendframe" src="blendmode.html"></iframe>
+    </div>
+    
+    <div id="image-wrapper">
+        <h1><u>Drag and Drop</u> the rectangles to see how the textures and colors react</h1>
+        
+        <p class="blending-text">The iridescence of a pigeons feathers is caused <br>by a arrangement of different layers.<br> When light is reflected from it, the slight variation <br> in position will lead to different reflections and the interference of layers leads <br> to further discoloration. Structural Coloration.</p>
+    </div>
+    
+  
+    
+    
+    <iframe class="main" src="master.html"></iframe>
+    
+    
+    <footer><h1>The Pigeon Effect - Interactive HTML-Page - HTML,CSS,P5.JS - HfG Karlsruhe </h1></footer>
+    
+    <div class="end"></div>
+    
+    <script>
+        document.addEventListener('mousemove', function(event) {
+            let lineSpacingY = 2 + (event.clientY / window.innerHeight) * 5; // 2px to 7px
+            document.querySelector('.dynamic-lines').style.backgroundSize = `100% ${lineSpacingY}px`;
+            
+            let lineSpacingX = 2 + (event.clientX / window.innerWidth) * 5; // 2px to 7px
+            document.querySelector('.green-lines').style.backgroundSize = `${lineSpacingX}px 100%`;
+        });
+        
+        const words = [
+    "DarkGrey", "DimGrey", "LightGrey", 
+    "SlateGrey", "DarkSlateGrey", "LightSlateGrey", 
+    "Grey", "#b0e2c3?",
+"#9ca29f?",
+"#3d3b49?",
+"#3b3b3b?",
+"#cda7e1?",
+"#ff46ff?",
+"#7fa1da?",
+"#3f8573?"
+];
+
+        let index = 0;
+        setInterval(() => {
+            document.getElementById("word-container").textContent = words[index];
+            index = (index + 1) % words.length;
+        }, 200); // Change word every second
+        
+        
+        
+        
+        
+        
+        
+         const images = ["shape0.png", "shape1.png", "shape2.png", "shape4.jpg", "shape5.jpg", "blendVertical.png","strip.jpg", "10802.jpg"/*, "color1.png", "color2.jpg", "color3.jpg"*/];
+const blendModes = ["multiply", "screen", "overlay", "difference", "lighten", "darken", "hard-light", "soft-light"];
+
+const imageWrapper = document.getElementById("image-wrapper"); // Target the wrapper
+
+imageWrapper.style.position = "relative"; // Ensure it positions elements relative to itself
+
+images.forEach((src, index) => {
+    let imgContainer = document.createElement("div");
+    imgContainer.classList.add("image-container");
+    
+    // Adjust position relative to the wrapper
+    imgContainer.style.position = "absolute";
+    imgContainer.style.left = `${index * 90 +600}px`;
+    imgContainer.style.top = `${Math.pow(-1, index) * 30 + 600}px`;
+    imgContainer.style.mixBlendMode = blendModes[index % blendModes.length];
+    
+    let img = document.createElement("img");
+    img.src = src;
+    img.draggable = false;
+    
+    imgContainer.appendChild(img);
+    imageWrapper.appendChild(imgContainer); // Append to wrapper instead of body
+    
+    let offsetX, offsetY, isDragging = false;
+    
+    imgContainer.addEventListener("mousedown", (e) => {
+        isDragging = true;
+        offsetX = e.clientX - imgContainer.getBoundingClientRect().left;
+        offsetY = e.clientY - imgContainer.getBoundingClientRect().top;
+        imgContainer.style.zIndex = 1000;
+    });
+    
+    window.addEventListener("mousemove", (e) => {
+        if (!isDragging) return;
+        imgContainer.style.left = `${e.clientX - offsetX}px`;
+        imgContainer.style.top = `${e.clientY - offsetY}px`;
+    });
+    
+    window.addEventListener("mouseup", () => {
+        isDragging = false;
+        imgContainer.style.zIndex = 1;
+    });
+});
+   
+        
+        /* SUPERIMPOSE IFRAME */
+        
+        
+        
+        
+    </script>
+    
 </body>
 </html>
