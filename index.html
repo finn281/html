@@ -26,7 +26,7 @@
         
         body {
             margin: 0;
-            height: 500vh;
+            height: 450vh;
             width: 100vw;
             background-color: white;
           /* background-image: url(blur.png);*/
@@ -39,11 +39,16 @@
         footer {
             text-align: center;
             padding: 3px;
-            background-color: darkgrey;
+            background-image: url(Ebene%201.png);
+            background-size: cover;
             color: black;
             position: absolute;
             bottom: 0;
+            width: 100vw;
+           
         }
+        
+        
         
         #grad {
         background-image: radial-gradient(#b0e2c3, #9ca29f, #3d3b49, #3b3b3b, #cda7e1, #ff46ff, #7fa1da, #3f8573);
@@ -83,7 +88,7 @@
         /* Static Red Stripes */
         .red-stripes {
             position: fixed;
-            top: 100vh;
+            top: 80vh;
             left: 0;
             width: 100%;
             height: 100vh;
@@ -96,7 +101,7 @@
         /* Red Lines */
         .dynamic-lines {
             position: fixed;
-            top: 100vh;
+            top: 80vh;
             left: 0;
             width: 100%;
             height: 100vh;
@@ -107,12 +112,27 @@
            /* transform: rotate(13deg);*/
         }
         
+         .green-lines {
+            position: fixed;
+            top: 80vh;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background-image: linear-gradient(to right, green 1px, transparent 1px);
+            background-size: 1px 100%;
+            z-index: 2; /* Keeps it above other layers */
+            pointer-events: none;
+        }
+        
         #superimpose {
            position: absolute;
-            top: 250vh;
+            top: 200vh;
             width: 100%;
             height: 100vh;
             overflow: hidden;
+            background-image: url(transparentA4_1.png);
+            background-size: contain;
+  
         }
         
         #superimpose2 {
@@ -148,7 +168,7 @@
         
         #image-wrapper {
             position: absolute;
-            top: 250vh; /* Adjust this value to place it where you want */
+            top: 200vh; /* Adjust this value to place it where you want */
             left: 0vw; /* Adjust horizontal position if needed */
             width: 100vw; /* Ensure it has enough space */
             height: 100vh;
@@ -157,7 +177,7 @@
         .blending-text {
             position: absolute;
             right: 100px;
-            bottom: 100px;
+            bottom: 200px;
             font-size: 2em;
             width: 50%;
             color: black; /* The color affects the blend result */
@@ -189,12 +209,12 @@
         
         .pigeon-frame {
             position: fixed;
-            top: 100vh;
+            top: 80vh;
             left: 0;
             width: 100vw;
             height: 100vh;
-            background-image: url(frameEye.png);
-            background-size: contain;
+            background-image: url(frameEye2.png);
+            background-size: cover;
             z-index: 1000000; /* Keeps it above the red stripes */
             pointer-events: none;
         }
@@ -242,25 +262,25 @@
         /*Spots for text*/
         #spot1 {
             position: absolute;
-            top: 115vh;
+            top: 100vh;
             left: 5%;  
         }
         
         #spot2 {
             position: absolute;
-            top: 160vh;
+            top: 130vh;
             left: 20%;  
         }
         
         #spot3 {
             position: absolute;
-            top: 150vh;
+            top: 170vh;
             right: 15%; 
         }
         
         #spot4 {
             position: absolute;
-            top: 116vh;
+            top: 105vh;
             right: 15%; 
             
         }
@@ -297,7 +317,7 @@
         .main {
             
             position: absolute;
-            top: 400vh;
+            top: 330vh;
             left: 0px;
             width: 100%;
             height: 1600px;
@@ -386,7 +406,7 @@
         }
         
         img {
-            max-width: 150px;
+            max-width: 350px;
             height: auto;
             user-select: none;
         }
@@ -418,7 +438,15 @@
 
     
     <div class="intro-div"> 
-        <h1>If you think about the mundane, you might, at some point, think about pigeons. How they're dull, annoying perhaps stupid but, most notably, ubiquitous in any urban environment. If you had to associate any color with the pigeon, what would it be? ↓</h1>
+        <h1> If you had to assign any emotion to the 
+pigeon, what would you come up with?
+ Slight annoyance? 
+Indifference perhaps? 
+Or does mundanity characterize this 
+bird best for you? <br>
+ If you had to think of any single 
+color to defi ne the pigeon what 
+would you think of? ↓</h1>
         
         <br> <br> <br> <br> <br> <br> <br>
         <div id="word-container">Grey </div>
@@ -429,15 +457,14 @@
     
     
     
-    <p id="spot1">maybe take a look <br> from <i>this</i> angle</p>
+    <p id="spot1">maybe take a look <br> from <i>this</i> angle<br>👁</p>
     
-    <p id="spot2">how about <br> <i>here</i> ?</p>
+    <p id="spot2"> sometimes it's <br> <i>vibrant</i> </p>
     
     <p id="spot3">notice the <br> <u>iridescence</u>? </p>
     
-    <p id="spot4">sometimes it's <br> <i>vibrant</i> </p>
-    
-    <p id="spot5">bottom</p>
+    <p id="spot4">how about <br> <i>here</i>?</p>
+  
     
     
     <div class="pigeon-frame"></div>
@@ -453,18 +480,18 @@
     </div>
     
     <div id="image-wrapper">
-        <h1><u>Drag and Drop</u> the rectangles to see how the textures and colors react</h1>
+       <!-- <h1><u>Drag and Drop</u> the rectangles to see how the textures and colors react</h1> -->
         
-        <p class="blending-text">The iridescence of a pigeons feathers is caused <br>by a arrangement of different layers.<br> When light is reflected from it, the slight variation <br> in position will lead to different reflections and the interference of layers leads <br> to further discoloration. Structural Coloration.</p>
+        <p class="blending-text">How do different colors and textures interact when they overlap? <br> Do they shimmer when <u>dragged</u> into the light?</p>
     </div>
     
   
     
     
-    <iframe class="main" src="master.html"></iframe>
+    <iframe class="main" src="master.html"> </iframe>
     
     
-    <footer><h1>The Pigeon Effect - Interactive HTML-Page - HTML,CSS,P5.JS - HfG Karlsruhe </h1></footer>
+    <footer><h1>The Pigeon Effect - On Unlearning Colors - HfG Karlsruhe - Wintersemester 2024/25 </h1></footer>
     
     <div class="end"></div>
     
@@ -502,8 +529,8 @@
         
         
         
-         const images = ["shape0.png", "shape1.png", "shape2.png", "shape4.jpg", "shape5.jpg", "blendVertical.png","strip.jpg", "10802.jpg"/*, "color1.png", "color2.jpg", "color3.jpg"*/];
-const blendModes = ["multiply", "screen", "overlay", "difference", "lighten", "darken", "hard-light", "soft-light"];
+         const images = ["shape0.png", "shape1.png", "shape2.png", "shape4.jpg", "shape5.jpg","strip.jpg", "10802.jpg", "blendVertical.png"/*, "color1.png", "color2.jpg", "color3.jpg"*/];
+const blendModes = ["multiply", "screen", "overlay", "difference", "difference", "exclusion", "hard-light", "hue"];
 
 const imageWrapper = document.getElementById("image-wrapper"); // Target the wrapper
 
@@ -515,8 +542,8 @@ images.forEach((src, index) => {
     
     // Adjust position relative to the wrapper
     imgContainer.style.position = "absolute";
-    imgContainer.style.left = `${index * 90 +600}px`;
-    imgContainer.style.top = `${Math.pow(-1, index) * 30 + 600}px`;
+    imgContainer.style.left = `${index * 190 +600}px`;
+    imgContainer.style.top = `${Math.pow(-1, index) * 60 + 600}px`;
     imgContainer.style.mixBlendMode = blendModes[index % blendModes.length];
     
     let img = document.createElement("img");

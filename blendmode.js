@@ -6,7 +6,7 @@ let velocities = [];
 let shapeBlendModes = [];
 let bg;
 const blendModes = [
-  'screen','screen', 'multiply','difference', 
+  'screen', 'multiply','difference', 
   'exclusion', 'dodge', 'burn'
 ];
 
@@ -25,7 +25,7 @@ function preload() {
 }
 
 function setup() {
-  createCanvas(494, 1080, WEBGL);
+  createCanvas(494, 1400, WEBGL);
   pixelDensity(1);
   imgLayer = createGraphics(width, height);
   imgLayer.pixelDensity(1);

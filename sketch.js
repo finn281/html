@@ -1,7 +1,7 @@
 let faded_indigo, dusty_mint, pigeon_rose;
 
 function setup() {
-  createCanvas(700, 700);
+  createCanvas(1080, 1080);
   background(255);
 
   // Initialize colors

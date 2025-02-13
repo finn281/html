@@ -14,12 +14,36 @@ body {
     margin: 0;
     padding: 0;
     width: 100vw;
-    height: 200vh;
-
-    
+    height: 200vh;   
 }
 
-
+table {
+    
+            
+            position: absolute;
+            right: 5vw;
+            top: 40vh;
+            width: 25vw;
+            border-collapse: collapse;
+            margin: 20px;
+            font-family: serif;
+    background-image: url(shape4.jpg);
+    background-size: cover;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+            color: white;
+        }
+        .color-box {
+            width: 50px;
+            height: 30px;
+            display: inline-block;
+        }
 
 .krona-one-regular {
   font-family: "Krona One", serif;
@@ -51,9 +75,18 @@ div.pigeon {
 div.moire {
   position: absolute;
   top: 40px;
-  left: 750px;
+  left: 10vw;
     margin: 0;
     align-content: center;
+}
+
+div.moire2 {
+  position: absolute;
+  top: 40px;
+  right: 15vw;
+    margin: 0;
+    align-content: center;
+    border: solid 1px;
 }
 
 div.lines {
@@ -82,16 +115,19 @@ iframe.pigeon {
     width: 700px;
     height: 700px;
     border-style: double;
+  
 }
 
 
 iframe.moire {
-    width: 700px;
-    height: 700px;
-    border-style: double;
+    width: 1080px;
+    height: 1080px;
+  border: none;
     align-content: center;
 
 }
+
+  
 
 iframe.lines {
     width: 700px;
